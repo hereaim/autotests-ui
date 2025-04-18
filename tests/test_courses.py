@@ -1,5 +1,8 @@
 from playwright.sync_api import sync_playwright, expect
+import pytest
 
+@pytest.mark.regression
+@pytest.mark.courses
 def test_empty_courses_list():
     # Авторизация и сохранение состояния браузера
     with sync_playwright() as playwright:
