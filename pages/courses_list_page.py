@@ -36,7 +36,7 @@ class CoursesListPage(BasePage):
             "course-estimated-time-info-row-view-text"
         )
 
-        # Меня курса
+        # Меню курса
         self.course_menu_button = page.get_by_test_id("course-view-menu-button")
         self.course_edit_menu_item = page.get_by_test_id("course-view-edit-menu-item")
         self.course_delete_menu_item = page.get_by_test_id(
@@ -53,8 +53,8 @@ class CoursesListPage(BasePage):
         )
 
     def check_visible_courses_title(self):
-        expect(self.course_title).to_be_visible()
-        expect(self.course_title).to_have_text("Courses")
+        expect(self.courses_title).to_be_visible()
+        expect(self.courses_title).to_have_text("Courses")
 
     def check_visible_empty_view(self):
         expect(self.empty_view_icon).to_be_visible()
@@ -105,5 +105,3 @@ class CoursesListPage(BasePage):
 
         expect(self.course_delete_menu_item.nth(index)).to_be_visible()
         self.course_delete_menu_item.nth(index).click()
-
-    
