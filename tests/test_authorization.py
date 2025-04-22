@@ -8,10 +8,12 @@ auth_data = [
     ("  ", "password")
 ]
 
+
 @pytest.mark.regression
 @pytest.mark.authorization
 @pytest.mark.parametrize("email, password", auth_data)
-def test_wrong_email_or_password_authorization(login_page: LoginPage, email: str, password: str):
+def test_wrong_email_or_password_authorization(login_page: LoginPage,
+                                               email: str, password: str):
     login_page.visit(
         "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login"
     )
