@@ -11,8 +11,7 @@ def test_empty_courses_list(courses_list_page: CoursesListPage):
     )
     courses_list_page.navbar.check_visible('username')
     courses_list_page.sidebar.check_visible()
-    courses_list_page.check_visible_courses_title()
-    courses_list_page.check_visible_create_course_button()
+    courses_list_page.toolbar_view.check_visible()
     courses_list_page.check_visible_empty_view()
 
 @pytest.mark.regression
@@ -61,11 +60,8 @@ def test_create_courses(create_courses_page, courses_list_page):
     create_courses_page.click_create_course_button()
 
     # Проверка наличия заголовка на странице списка курсов
-    courses_list_page.check_visible_courses_title()
-    # Проверка на наличие кнопки создания курса
-    courses_list_page.check_visible_create_course_button()
-    # Проверка корректности отображаемых данных на карточке курса
-    courses_list_page.check_visible_course_card(
+    courses_list_page.toolbar_view.check_visible()
+    courses_list_page.course_view.check_visible(
         CheckVisibleCourseCardParams(
             index=0,
             title="Playwright",
