@@ -17,30 +17,25 @@ def test_empty_courses_list(courses_list_page: CoursesListPage):
 
 @pytest.mark.regression
 @pytest.mark.courses
-def test_create_courses(create_courses_page: CreateCoursePage, courses_list_page: CoursesListPage):
-
+def test_create_course(create_courses_page: CreateCoursePage, courses_list_page: CoursesListPage):
     # Переход на страницу создания курса
     create_courses_page.visit(
         "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create"
     )
-    # Проверка наличия заголовка "Create course"
-    create_courses_page.check_visible_create_course_title()
-    # Проверка, что кнопка создания курса недоступна для нажатия
-    create_courses_page.check_disabled_create_course_button()
+    # Проверка наличия заголовка "Create course" и что кнопка недоступна для нажатия
+    create_courses_page.create_course_toolbar_view.check_visible()
     # Проверка, что отображается пустой блок для предпросмотра изображения
     create_courses_page.image_upload_widget.check_visible(is_image_uploaded=False)
     # Проверка, что форма создания курса отображается и содержит значения по умолчанию
-    create_courses_page.check_visible_create_course_form(
+    create_courses_page.create_course_form.check_visible(
         title="",
         description="",
         estimated_time="",
         max_score="0",
         min_score="0",
     )
-    # Проверка наличия заголовка "Exercises"
-    create_courses_page.check_visible_exercises_title()
-    # Проверка наличия кнопки создания задания
-    create_courses_page.check_visible_create_exercise_button()
+    # Проверка наличия заголовка "Exercises" и кнопки создания задания
+    create_courses_page.create_exercises_toolbar_view.check_visible()
     # Проверка, что отображается блок с пустыми заданиями
     create_courses_page.check_visible_exercises_empty_view()
     # Загрузка изображения превью курса
@@ -48,15 +43,17 @@ def test_create_courses(create_courses_page: CreateCoursePage, courses_list_page
     # Проверка, что блок загрузки изображения отображает состояние, когда картинка успешно загружена
     create_courses_page.image_upload_widget.check_visible(is_image_uploaded=True)
     # Заполнение формы создания курса
-    create_courses_page.fill_create_course_form(
+    create_courses_page.create_course_form.fill(
         title="Playwright",
         estimated_time="2 weeks",
         description="Playwright",
         max_score="100",
         min_score="10",
     )
+    # Проверка наличия заголовка "Create course" и что кнопка доступна для нажатия
+    create_courses_page.create_course_toolbar_view.check_visible(is_create_course_disabled=False)
     # Клик на кнопку создания курса
-    create_courses_page.click_create_course_button()
+    create_courses_page.create_course_toolbar_view.click_create_course_button()
 
     # Проверка наличия заголовка на странице списка курсов
     courses_list_page.toolbar_view.check_visible()

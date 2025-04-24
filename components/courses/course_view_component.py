@@ -14,6 +14,7 @@ class CheckVisibleCourseCardParams:
     min_score: str
     estimated_time: str
 
+
 class CourseViewComponent(BaseComponent):
     def __init__(self, page: Page):
         super().__init__(page)
