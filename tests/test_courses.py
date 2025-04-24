@@ -1,43 +1,19 @@
 import pytest
-from playwright.sync_api import expect
 from pages.courses_list_page import CoursesListPage, CheckVisibleCourseCardParams
 from pages.create_course_page import CreateCoursePage
 
 
 @pytest.mark.regression
 @pytest.mark.courses
-def test_empty_courses_list(chromium_page_with_state):
-    chromium_page_with_state.goto(
+def test_empty_courses_list(courses_list_page: CoursesListPage):
+    courses_list_page.visit(
         "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses"
     )
-
-    # Получение локаторов
-    title_text = chromium_page_with_state.get_by_test_id(
-        "courses-list-toolbar-title-text"
-    )
-    empty_view_icon = chromium_page_with_state.get_by_test_id(
-        "courses-list-empty-view-icon"
-    )
-    empty_title_text = chromium_page_with_state.get_by_test_id(
-        "courses-list-empty-view-title-text"
-    )
-    empty_description_text = chromium_page_with_state.get_by_test_id(
-        "courses-list-empty-view-description-text"
-    )
-
-    # Проверка видимости элементов
-    expect(title_text).to_be_visible()
-    expect(empty_view_icon).to_be_visible()
-    expect(empty_title_text).to_be_visible()
-    expect(empty_description_text).to_be_visible()
-    # Проверка текста элементов
-    expect(title_text).to_have_text("Courses")
-    expect(empty_title_text).to_have_text("There is no results")
-    expect(empty_description_text).to_have_text(
-        "Results from the load test pipeline will be displayed here"
-    )
-    chromium_page_with_state.wait_for_timeout(2000)
-
+    courses_list_page.navbar.check_visible('username')
+    courses_list_page.sidebar.check_visible()
+    courses_list_page.check_visible_courses_title()
+    courses_list_page.check_visible_create_course_button()
+    courses_list_page.check_visible_empty_view()
 
 @pytest.mark.regression
 @pytest.mark.courses
