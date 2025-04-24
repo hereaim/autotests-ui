@@ -14,9 +14,10 @@ def test_empty_courses_list(courses_list_page: CoursesListPage):
     courses_list_page.toolbar_view.check_visible()
     courses_list_page.check_visible_empty_view()
 
+
 @pytest.mark.regression
 @pytest.mark.courses
-def test_create_courses(create_courses_page, courses_list_page):
+def test_create_courses(create_courses_page: CreateCoursePage, courses_list_page: CoursesListPage):
 
     # Переход на страницу создания курса
     create_courses_page.visit(
@@ -27,9 +28,7 @@ def test_create_courses(create_courses_page, courses_list_page):
     # Проверка, что кнопка создания курса недоступна для нажатия
     create_courses_page.check_disabled_create_course_button()
     # Проверка, что отображается пустой блок для предпросмотра изображения
-    create_courses_page.check_visible_image_preview_empty_view()
-    # Проверка, что блок загрузки изображения отображается в состоянии, когда картинка не выбрана
-    create_courses_page.check_visible_image_upload_view()
+    create_courses_page.image_upload_widget.check_visible(is_image_uploaded=False)
     # Проверка, что форма создания курса отображается и содержит значения по умолчанию
     create_courses_page.check_visible_create_course_form(
         title="",
@@ -45,9 +44,9 @@ def test_create_courses(create_courses_page, courses_list_page):
     # Проверка, что отображается блок с пустыми заданиями
     create_courses_page.check_visible_exercises_empty_view()
     # Загрузка изображения превью курса
-    create_courses_page.upload_preview_image("./testdata/files/image.png")
+    create_courses_page.image_upload_widget.upload_preview_image("./testdata/files/image.png")
     # Проверка, что блок загрузки изображения отображает состояние, когда картинка успешно загружена
-    create_courses_page.check_visible_image_upload_view(True)
+    create_courses_page.image_upload_widget.check_visible(is_image_uploaded=True)
     # Заполнение формы создания курса
     create_courses_page.fill_create_course_form(
         title="Playwright",
