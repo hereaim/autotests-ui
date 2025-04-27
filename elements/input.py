@@ -9,8 +9,8 @@ class Input(BaseElement):
 
     def fill(self, value: str, **kwargs):
         locator = self.get_locator(**kwargs)
-        expect(locator).to_be_visible(value)
+        locator.fill(value)
 
-    def check_have_text(self, text: str, **kwargs):
+    def check_have_text(self, value: str, **kwargs):
         locator = self.get_locator(**kwargs)
-        expect(locator).to_have_text(text)
+        expect(locator).to_have_text(value)
