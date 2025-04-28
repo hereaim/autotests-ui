@@ -7,10 +7,10 @@ class Textarea(BaseElement):
     def get_locator(self, nth: int = 0, **kwargs) -> Locator:
         return super().get_locator(nth, **kwargs).locator('textarea').first
 
-    def fill(self, nth: int = 0, value: str, **kwargs):
+    def fill(self, value: str, nth: int = 0,  **kwargs):
         locator = self.get_locator(nth, **kwargs)
         locator.fill(value)
 
-    def check_have_text(self, nth: int = 0, value: str, **kwargs):
+    def check_have_text(self, value: str, nth: int = 0,  **kwargs):
         locator = self.get_locator(nth, **kwargs)
         expect(locator).to_have_text(value)

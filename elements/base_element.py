@@ -20,6 +20,6 @@ class BaseElement:
         locator = self.get_locator(nth, **kwargs)
         expect(locator).to_be_visible()
 
-    def check_have_text(self, nth: int = 0, text: str, **kwargs):
+    def check_have_text(self, text: str, nth: int = 0,  **kwargs):
         locator = self.get_locator(nth, **kwargs)
         expect(locator).to_have_text(text)
