@@ -4,13 +4,13 @@ from elements.base_element import BaseElement
 
 
 class Input(BaseElement):
-    def get_locator(self, **kwargs) -> Locator:
-        return super().get_locator(**kwargs).locator('input')
+    def get_locator(self, nth: int = 0, **kwargs) -> Locator:
+        return super().get_locator(nth, **kwargs).locator('input')
 
-    def fill(self, value: str, **kwargs):
-        locator = self.get_locator(**kwargs)
+    def fill(self, nth: int = 0, value: str, **kwargs):
+        locator = self.get_locator(nth, **kwargs)
         locator.fill(value)
 
-    def check_have_text(self, value: str, **kwargs):
-        locator = self.get_locator(**kwargs)
+    def check_have_text(self, nth: int = 0, value: str, **kwargs):
+        locator = self.get_locator(nth, **kwargs)
         expect(locator).to_have_value(value)
