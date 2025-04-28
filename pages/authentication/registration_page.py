@@ -1,3 +1,5 @@
+import re
+
 from playwright.sync_api import Page
 from pages.base_page import BasePage
 
@@ -20,3 +22,4 @@ class RegistrationPage(BasePage):
     # Метод для нажатия на кнопку "Registration"
     def click_registration_button(self):
         self.registration_button.click()
+        self.check_current_url(re.compile(".*/#/auth/login"))
