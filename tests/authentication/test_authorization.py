@@ -1,9 +1,15 @@
+import allure
 import pytest
+from allure_commons.types import Severity
 
 from fixtures.pages import login_page
 from pages.authentication.login_page import LoginPage
 from pages.authentication.registration_page import RegistrationPage
 from pages.dashboard.dashboard_page import DashboardPage
+from tools.allure.epics import AllureEpic
+from tools.allure.features import AllureFeature
+from tools.allure.stories import AllureStory
+from tools.allure.tags import AllureTag
 
 auth_data = [
     ("user.name@gmail.com", "password"),
@@ -14,7 +20,17 @@ auth_data = [
 
 @pytest.mark.regression
 @pytest.mark.authorization
+@allure.tag(AllureTag.AUTHORIZATION, AllureTag.REGRESSION)
+@allure.epic(AllureEpic.LMS)
+@allure.feature(AllureFeature.AUTHENTICATION)
+@allure.story(AllureStory.AUTHORIZATION)
+@allure.parent_suite(AllureEpic.LMS)
+@allure.suite(AllureFeature.AUTHENTICATION)
+@allure.sub_suite(AllureStory.AUTHORIZATION)
 class TestAuthorization:
+    @allure.tag(AllureTag.USER_LOGIN)
+    @allure.severity(Severity.BLOCKER)
+    @allure.title("User login with correct email and password")
     def test_successful_authorization(
         self,
         dashboard_page: DashboardPage,
@@ -43,6 +59,9 @@ class TestAuthorization:
         dashboard_page.navbar.check_visible("username")
         dashboard_page.sidebar.check_visible()
 
+    @allure.tag(AllureTag.NAVIGATION)
+    @allure.severity(Severity.NORMAL)
+    @allure.title("Navigation from login page to registration page")
     def test_navigate_from_authorization_page_to_registration_page(
         self, registration_page: RegistrationPage, login_page: LoginPage
     ):
@@ -54,6 +73,9 @@ class TestAuthorization:
             email="", username="", password=""
         )
 
+    @allure.tag(AllureTag.USER_LOGIN)
+    @allure.title("User login with wrong email or password")
+    @allure.severity(Severity.CRITICAL)
     @pytest.mark.parametrize("email, password", auth_data)
     def test_wrong_email_or_password_authorization(
         self, login_page: LoginPage, email: str, password: str
