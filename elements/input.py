@@ -13,4 +13,4 @@ class Input(BaseElement):
 
     def check_have_text(self, value: str, **kwargs):
         locator = self.get_locator(**kwargs)
-        expect(locator).to_have_text(value)
+        expect(locator).to_have_value(value)
