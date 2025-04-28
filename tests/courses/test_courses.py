@@ -64,3 +64,52 @@ class TestCourses:
                 estimated_time="2 weeks",
             )
         )
+
+    def test_edit_course(self,
+                         create_courses_page: CreateCoursePage,
+                         courses_list_page: CoursesListPage):
+        # переход на страницу создания курса
+        create_courses_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
+        # заполнение формы создания курса
+        # Проверка, что отображается пустой блок для предпросмотра изображения
+        create_courses_page.image_upload_widget.check_visible(is_image_uploaded=False)
+        create_courses_page.image_upload_widget.upload_preview_image(
+            "./testdata/files/image.png"
+        )
+        create_courses_page.create_course_form.fill(
+            title="Playwright",
+            estimated_time="2 weeks",
+            description="Playwright",
+            max_score="100",
+            min_score="10",)
+        # клик по кнопке создания курса
+        create_courses_page.create_course_toolbar_view.click_create_course_button()
+        # проверка, что курс создан с изначальными данными
+        courses_list_page.course_view.check_visible(
+            CheckVisibleCourseCardParams(
+                index=0,
+                title="Playwright",
+                max_score="100",
+                min_score="10",
+                estimated_time="2 weeks",
+            ))
+        # клик на кнопку редактирования курса
+        courses_list_page.course_view.menu.click_edit(index=0)
+        # заполнение формы редактирования курса
+        create_courses_page.create_course_form.fill(
+            title="Not Playwright",
+            estimated_time="1 weeks",
+            description="Not Playwright",
+            max_score="20",
+            min_score="1",)
+        # клик по кнопке редактирования курса
+        create_courses_page.create_course_toolbar_view.click_create_course_button()
+        # проверка, что курс изменен
+        courses_list_page.course_view.check_visible(
+            CheckVisibleCourseCardParams(
+                index=0,
+                title="Not Playwright",
+                max_score="20",
+                min_score="1",
+                estimated_time="1 weeks",
+            ))
