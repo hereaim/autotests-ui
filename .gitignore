@@ -2,3 +2,4 @@ browser-state.json
 .vscode
 __pycache__
 .idea
+/allure-results/
