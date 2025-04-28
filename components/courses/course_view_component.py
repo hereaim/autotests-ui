@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+import allure
 from playwright.sync_api import Page
 
 from components.base_component import BaseComponent
@@ -36,23 +37,24 @@ class CourseViewComponent(BaseComponent):
             page, "course-estimated-time-info-row-view-text", "Estimated text"
         )
 
+    @allure.step("Check visible course view at index '{index}'")
     def check_visible(self, params: CheckVisibleCourseCardParams):
         self.image.check_visible(nth=params.index)
 
         self.title.check_visible(nth=params.index)
-        self.title.check_have_text(nth=params.index, text=params.title)
+        self.title.check_have_value(nth=params.index, text=params.title)
 
         self.max_score_text.check_visible(nth=params.index)
-        self.max_score_text.check_have_text(
+        self.max_score_text.check_have_value(
             nth=params.index, text=f"Max score: {params.max_score}"
         )
 
         self.min_score_text.check_visible(nth=params.index)
-        self.min_score_text.check_have_text(
+        self.min_score_text.check_have_value(
             nth=params.index, text=f"Min score: {params.min_score}"
         )
 
         self.estimated_time_text.check_visible(nth=params.index)
-        self.estimated_time_text.check_have_text(
+        self.estimated_time_text.check_have_value(
             nth=params.index, text=f"Estimated time: {params.estimated_time}"
         )

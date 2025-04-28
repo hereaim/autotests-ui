@@ -33,19 +33,19 @@ class CreateCourseFormComponent(BaseComponent):
         min_score: str,
     ):
         self.title_input.check_visible()
-        self.title_input.check_have_text(value=title)
+        self.title_input.check_have_value(value=title)
 
         self.estimated_time_input.check_visible()
-        self.estimated_time_input.check_have_text(value=estimated_time)
+        self.estimated_time_input.check_have_value(value=estimated_time)
 
         self.description_textarea.check_visible()
-        self.description_textarea.check_have_text(value=description)
+        self.description_textarea.check_have_value(value=description)
 
         self.max_score_input.check_visible()
-        self.max_score_input.check_have_text(value=max_score)
+        self.max_score_input.check_have_value(value=max_score)
 
         self.min_score_input.check_visible()
-        self.min_score_input.check_have_text(value=min_score)
+        self.min_score_input.check_have_value(value=min_score)
 
     def fill(
         self,
@@ -56,12 +56,12 @@ class CreateCourseFormComponent(BaseComponent):
         min_score: str,
     ):
         self.title_input.fill(value=title)
-        self.title_input.check_have_text(value=title)
+        self.title_input.check_have_value(value=title)
         self.estimated_time_input.fill(value=estimated_time)
-        self.estimated_time_input.check_have_text(value=estimated_time)
+        self.estimated_time_input.check_have_value(value=estimated_time)
         self.description_textarea.fill(value=description)
-        self.description_textarea.check_have_text(value=description)
+        self.description_textarea.check_have_value(value=description)
         self.max_score_input.fill(value=max_score)
-        self.max_score_input.check_have_text(value=max_score)
+        self.max_score_input.check_have_value(value=max_score)
         self.min_score_input.fill(value=min_score)
-        self.min_score_input.check_have_text(value=min_score)
+        self.min_score_input.check_have_value(value=min_score)

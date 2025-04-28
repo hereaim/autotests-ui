@@ -18,7 +18,7 @@ class CreateCourseToolbarViewComponent(BaseComponent):
 
     def check_visible(self, is_create_course_disabled=True):
         self.title.check_visible()
-        self.title.check_have_text(text="Create course")
+        self.title.check_have_value(text="Create course")
         self.create_button.check_visible()
         if is_create_course_disabled:
             self.create_button.check_disabled()

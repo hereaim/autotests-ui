@@ -18,7 +18,7 @@ class CoursesListToolbarViewComponent(BaseComponent):
 
     def check_visible(self):
         self.title.check_visible()
-        self.title.check_have_text(text="Courses")
+        self.title.check_have_value(text="Courses")
 
     def click_create_course_button(self):
         self.create_course_button.click()
