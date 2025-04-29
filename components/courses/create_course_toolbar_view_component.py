@@ -1,3 +1,4 @@
+import allure
 from playwright.sync_api import Page
 
 from components.base_component import BaseComponent
@@ -10,12 +11,14 @@ class CreateCourseToolbarViewComponent(BaseComponent):
         super().__init__(page)
         # Заголовок и кнопка создания курса
         self.title = Text(page,
-            "create-course-toolbar-title-text", 'Title'
-        )
+                          "create-course-toolbar-title-text", 'Title'
+                          )
         self.create_button = Button(page,
-            "create-course-toolbar-create-course-button", 'Create'
-        )
+                                    "create-course-toolbar-create-course-button",
+                                    'Create'
+                                    )
 
+    @allure.step("Check visible course toolbar view")
     def check_visible(self, is_create_course_disabled=True):
         self.title.check_visible()
         self.title.check_have_value(text="Create course")
@@ -25,5 +28,6 @@ class CreateCourseToolbarViewComponent(BaseComponent):
         if not is_create_course_disabled:
             self.create_button.check_enabled()
 
+    @allure.step("Click create course button")
     def click_create_course_button(self):
         self.create_button.click()
