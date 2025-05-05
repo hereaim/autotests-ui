@@ -27,12 +27,12 @@ with sync_playwright() as playwright:
     registration_button.click()
 
     # Сохраняем состояние браузера (куки и localStorage) в файл для дальнейшего использования
-    context.storage_state(path="browser-state.json")
+    context.storage_state(path="browser_state.json")
 
 # Использование авторизованного состояния для доступа к страницам
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context(storage_state="browser-state.json")
+    context = browser.new_context(storage_state="browser_state.json")
     page = context.new_page()
 
     page.goto(

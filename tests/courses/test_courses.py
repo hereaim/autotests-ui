@@ -75,7 +75,7 @@ class TestCourses:
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.course_view.check_visible(
             CheckVisibleCourseCardParams(
-                index=0,
+                index=1,
                 title="Playwright",
                 max_score="100",
                 min_score="10",
@@ -107,7 +107,7 @@ class TestCourses:
         # проверка, что курс создан с изначальными данными
         courses_list_page.course_view.check_visible(
             CheckVisibleCourseCardParams(
-                index=0,
+                index=1,
                 title="Playwright",
                 max_score="100",
                 min_score="10",
