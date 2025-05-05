@@ -28,6 +28,5 @@ class CreateCourseToolbarViewComponent(BaseComponent):
         if not is_create_course_disabled:
             self.create_button.check_enabled()
 
-    @allure.step("Click create course button")
     def click_create_course_button(self):
         self.create_button.click()

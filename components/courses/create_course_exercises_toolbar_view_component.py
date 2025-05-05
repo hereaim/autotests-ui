@@ -26,6 +26,5 @@ class CreateCourseExercisesToolbarViewComponent(BaseComponent):
         self.title.check_have_value(text="Exercises")
         self.create_button.check_visible()
 
-    @allure.step("Click create exercise")
     def click_create_exercise_button(self):
         self.create_button.click()

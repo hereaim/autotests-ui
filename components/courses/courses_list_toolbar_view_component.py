@@ -22,7 +22,6 @@ class CoursesListToolbarViewComponent(BaseComponent):
         self.title.check_visible()
         self.title.check_have_value(text="Courses")
 
-    @allure.step("Click create course button and check redirect on url")
     def click_create_course_button(self):
         self.create_course_button.click()
         self.check_current_url(re.compile(".*/#/courses/create"))
