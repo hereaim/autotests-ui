@@ -3,3 +3,4 @@ browser-state.json
 __pycache__
 .idea
 /allure-results/
+/tracing/
