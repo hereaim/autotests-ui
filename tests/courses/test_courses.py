@@ -111,7 +111,7 @@ class TestCourses:
                 title="Playwright",
                 max_score="100",
                 min_score="10",
-                estimated_time="2 weeks",
+                estimated_time="2 weeks"
             ))
         # клик на кнопку редактирования курса
         courses_list_page.course_view.menu.click_edit(index=0)
@@ -131,5 +131,5 @@ class TestCourses:
                 title="Not Playwright",
                 max_score="20",
                 min_score="1",
-                estimated_time="1 weeks",
+                estimated_time="1 weeks"
             ))
