@@ -2,12 +2,14 @@ import allure
 import pytest
 from allure_commons.types import Severity
 
+from config import settings
 from pages.authentication.registration_page import RegistrationPage
 from pages.dashboard.dashboard_page import DashboardPage
 from tools.allure.epics import AllureEpic
 from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
 from tools.allure.tags import AllureTag
+from tools.routes import AppRoute
 
 
 @pytest.mark.regression
@@ -23,18 +25,21 @@ class TestRegistration:
     @allure.title("Registration with correct email, username and password")
     @allure.severity(Severity.CRITICAL)
     def test_successful_registration(
-        self, registration_page: RegistrationPage, dashboard_page: DashboardPage
+            self, registration_page: RegistrationPage,
+            dashboard_page: DashboardPage
     ):
         # Посещение страницы регистрации
         registration_page.visit(
-            "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration"
+            AppRoute.REGISTRATION
         )
         # Заполнение формы регистрации
         registration_page.registration_form.fill(
-            "user@gmail.com", "username", "password"
+            settings.test_user.email, settings.test_user.username,
+            settings.test_user.password
         )
         registration_page.registration_form.check_visible(
-            "user@gmail.com", "username", "password"
+            settings.test_user.email, settings.test_user.username,
+            settings.test_user.password
         )
         registration_page.click_registration_button()
         # Проверка видимости заголовка

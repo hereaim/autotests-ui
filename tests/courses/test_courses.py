@@ -2,12 +2,14 @@ import allure
 import pytest
 from allure_commons.types import Severity
 
+from config import settings
 from pages.courses.courses_list_page import CoursesListPage, CheckVisibleCourseCardParams
 from pages.courses.create_course_page import CreateCoursePage
 from tools.allure.epics import AllureEpic
 from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
 from tools.allure.tags import AllureTag
+from tools.routes import AppRoute
 
 
 @pytest.mark.regression
@@ -24,9 +26,9 @@ class TestCourses:
     @allure.severity(Severity.NORMAL)
     def test_empty_courses_list(self, courses_list_page: CoursesListPage):
         courses_list_page.visit(
-            "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses"
+            AppRoute.COURSES
         )
-        courses_list_page.navbar.check_visible('username')
+        courses_list_page.navbar.check_visible(settings.test_user.username)
         courses_list_page.sidebar.check_visible()
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.check_visible_empty_view()
@@ -35,9 +37,7 @@ class TestCourses:
     @allure.severity(Severity.CRITICAL)
     def test_create_course(self, create_courses_page: CreateCoursePage, courses_list_page: CoursesListPage):
         # Переход на страницу создания курса
-        create_courses_page.visit(
-            "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create"
-        )
+        create_courses_page.visit(AppRoute.COURSES + '/create')
         # Проверка наличия заголовка "Create course" и что кнопка недоступна для нажатия
         create_courses_page.create_course_toolbar_view.check_visible()
         # Проверка, что отображается пустой блок для предпросмотра изображения
@@ -55,7 +55,7 @@ class TestCourses:
         # Проверка, что отображается блок с пустыми заданиями
         create_courses_page.check_visible_exercises_empty_view()
         # Загрузка изображения превью курса
-        create_courses_page.image_upload_widget.upload_preview_image("./testdata/files/image.png")
+        create_courses_page.image_upload_widget.upload_preview_image(settings.test_data.image_png_file)
         # Проверка, что блок загрузки изображения отображает состояние, когда картинка успешно загружена
         create_courses_page.image_upload_widget.check_visible(is_image_uploaded=True)
         # Заполнение формы создания курса
@@ -75,7 +75,7 @@ class TestCourses:
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.course_view.check_visible(
             CheckVisibleCourseCardParams(
-                index=1,
+                index=0,
                 title="Playwright",
                 max_score="100",
                 min_score="10",
@@ -89,12 +89,12 @@ class TestCourses:
                          create_courses_page: CreateCoursePage,
                          courses_list_page: CoursesListPage):
         # переход на страницу создания курса
-        create_courses_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
+        create_courses_page.visit(AppRoute.COURSES + '/create')
         # заполнение формы создания курса
         # Проверка, что отображается пустой блок для предпросмотра изображения
         create_courses_page.image_upload_widget.check_visible(is_image_uploaded=False)
         create_courses_page.image_upload_widget.upload_preview_image(
-            "./testdata/files/image.png"
+            settings.test_data.image_png_file
         )
         create_courses_page.create_course_form.fill(
             title="Playwright",
@@ -107,7 +107,7 @@ class TestCourses:
         # проверка, что курс создан с изначальными данными
         courses_list_page.course_view.check_visible(
             CheckVisibleCourseCardParams(
-                index=1,
+                index=0,
                 title="Playwright",
                 max_score="100",
                 min_score="10",
