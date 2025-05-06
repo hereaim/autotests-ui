@@ -37,7 +37,7 @@ class TestCourses:
     @allure.severity(Severity.CRITICAL)
     def test_create_course(self, create_courses_page: CreateCoursePage, courses_list_page: CoursesListPage):
         # Переход на страницу создания курса
-        create_courses_page.visit(AppRoute.COURSES + '/create')
+        create_courses_page.visit(AppRoute.CREATE_COURSE)
         # Проверка наличия заголовка "Create course" и что кнопка недоступна для нажатия
         create_courses_page.create_course_toolbar_view.check_visible()
         # Проверка, что отображается пустой блок для предпросмотра изображения
@@ -89,7 +89,7 @@ class TestCourses:
                          create_courses_page: CreateCoursePage,
                          courses_list_page: CoursesListPage):
         # переход на страницу создания курса
-        create_courses_page.visit(AppRoute.COURSES + '/create')
+        create_courses_page.visit(AppRoute.CREATE_COURSE)
         # заполнение формы создания курса
         # Проверка, что отображается пустой блок для предпросмотра изображения
         create_courses_page.image_upload_widget.check_visible(is_image_uploaded=False)
