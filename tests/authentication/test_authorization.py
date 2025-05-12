@@ -32,6 +32,7 @@ auth_data = [
 class TestAuthorization:
     @allure.tag(AllureTag.USER_LOGIN)
     @allure.severity(Severity.BLOCKER)
+    @pytest.mark.xdist_group(name="authorization-group")
     @allure.title("User login with correct email and password")
     def test_successful_authorization(
         self,
@@ -79,6 +80,7 @@ class TestAuthorization:
     @allure.title("User login with wrong email or password")
     @allure.severity(Severity.CRITICAL)
     @pytest.mark.parametrize("email, password", auth_data)
+    @pytest.mark.xdist_group(name="authorization-group")
     def test_wrong_email_or_password_authorization(
         self, login_page: LoginPage, email: str, password: str
     ):
