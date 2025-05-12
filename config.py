@@ -12,12 +12,16 @@ class Browser(str, Enum):
 
 
 class TestUser(BaseModel):
+    model_config = SettingsConfigDict(env_prefix="TEST_USER")
+
     email: EmailStr
     username: str
     password: str
 
 
 class TestData(BaseModel):
+    model_config = SettingsConfigDict(env_prefix="TEST_DATA")
+
     image_png_file: FilePath
 
 
@@ -32,6 +36,7 @@ class Settings(BaseSettings):
     test_data: TestData
     videos_dir: DirectoryPath
     tracing_dir: DirectoryPath
+    allure_results_dir: DirectoryPath
     browser_state_file: FilePath
 
     def get_base_url(self) -> str:
@@ -41,15 +46,18 @@ class Settings(BaseSettings):
     def initialize(cls) -> Self:
         videos_dir = DirectoryPath("./videos")
         tracing_dir = DirectoryPath("./tracing")
+        allure_results_dir = DirectoryPath("./allure-results")
         browser_state_file = FilePath("browser_state.json")
 
         videos_dir.mkdir(exist_ok=True)
         tracing_dir.mkdir(exist_ok=True)
+        allure_results_dir.mkdir(exist_ok=True)
         browser_state_file.touch(exist_ok=True)
 
         return Settings(
             videos_dir=videos_dir,
             tracing_dir=tracing_dir,
+            allure_results_dir=allure_results_dir,
             browser_state_file=browser_state_file
         )
 
