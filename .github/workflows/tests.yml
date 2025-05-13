@@ -36,6 +36,25 @@ jobs:
         run: |
           pytest -m regression --alluredir=allure-results --numprocesses 2
 
+      # 5. Сохранение папки с результатами как артефакт
+      - name: Save Allure results as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Allure results
+          path: allure-results
+
+  publish-report:
+    needs: run-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Получение папки с результатами отчетов
+      - name: Get Allure results
+        uses: actions/download-artifact@v4
+        with:
+          name: Allure results
+          path: allure-results
+
       # 5. Шаг для получения истории отчётов Allure, если она существует
       - name: Get Allure history
         uses: actions/checkout@v4  # Клонируем репозиторий, чтобы получить историю отчётов
