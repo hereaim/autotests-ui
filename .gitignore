@@ -5,3 +5,4 @@ __pycache__
 /allure-results/
 /tracing/
 /videos/
+.env
