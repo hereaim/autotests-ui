@@ -74,14 +74,12 @@ class TestCourses:
         # Проверка наличия заголовка на странице списка курсов
         courses_list_page.toolbar_view.check_visible()
         courses_list_page.course_view.check_visible(
-            CheckVisibleCourseCardParams(
                 index=0,
                 title="Playwright",
                 max_score="100",
                 min_score="10",
                 estimated_time="2 weeks",
             )
-        )
 
     @allure.title("Edit course")
     @allure.severity(Severity.CRITICAL)
@@ -106,13 +104,12 @@ class TestCourses:
         create_courses_page.create_course_toolbar_view.click_create_course_button()
         # проверка, что курс создан с изначальными данными
         courses_list_page.course_view.check_visible(
-            CheckVisibleCourseCardParams(
                 index=0,
                 title="Playwright",
                 max_score="100",
                 min_score="10",
                 estimated_time="2 weeks"
-            ))
+            )
         # клик на кнопку редактирования курса
         courses_list_page.course_view.menu.click_edit(index=0)
         # заполнение формы редактирования курса
@@ -126,10 +123,9 @@ class TestCourses:
         create_courses_page.create_course_toolbar_view.click_create_course_button()
         # проверка, что курс изменен
         courses_list_page.course_view.check_visible(
-            CheckVisibleCourseCardParams(
                 index=0,
                 title="Not Playwright",
                 max_score="20",
                 min_score="1",
                 estimated_time="1 weeks"
-            ))
+            )

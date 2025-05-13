@@ -38,23 +38,23 @@ class CourseViewComponent(BaseComponent):
         )
 
     @allure.step("Check visible course view at index '{index}'")
-    def check_visible(self, params: CheckVisibleCourseCardParams):
-        self.image.check_visible(nth=params.index)
+    def check_visible(self, index: int, title: str, max_score: str,min_score: str, estimated_time: str):
+        self.image.check_visible(nth=index)
 
-        self.title.check_visible(nth=params.index)
-        self.title.check_have_value(nth=params.index, text=params.title)
+        self.title.check_visible(nth=index)
+        self.title.check_have_value(text=title, nth=index)
 
-        self.max_score_text.check_visible(nth=params.index)
+        self.max_score_text.check_visible(nth=index)
         self.max_score_text.check_have_value(
-            nth=params.index, text=f"Max score: {params.max_score}"
+            text=f"Max score: {max_score}", nth=index
         )
 
-        self.min_score_text.check_visible(nth=params.index)
+        self.min_score_text.check_visible(nth=index)
         self.min_score_text.check_have_value(
-            nth=params.index, text=f"Min score: {params.min_score}"
+            text=f"Min score: {min_score}", nth=index
         )
 
-        self.estimated_time_text.check_visible(nth=params.index)
+        self.estimated_time_text.check_visible(nth=index)
         self.estimated_time_text.check_have_value(
-            nth=params.index, text=f"Estimated time: {params.estimated_time}"
+            text=f"Estimated time: {estimated_time}", nth=index
         )
