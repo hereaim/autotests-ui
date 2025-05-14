@@ -35,6 +35,32 @@ jobs:
         # Запускаем тесты, отмеченные как "regression", генерируем результаты для Allure
         run: |
           pytest -m regression --alluredir=allure-results --numprocesses 2
+      
+            - name: Restore coverage history
+        uses: actions/cache/restore@v4
+        with:
+          path: coverage-history.json
+          key: coverage-history-${{ github.run_id }}
+          restore-keys: |
+            coverage-history-
+
+      - name: Generate coverage report
+        run: |
+          ui-coverage-tool save-report
+
+      - name: Cache coverage history
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path:  coverage-history.json
+          key: coverage-history-${{ github.run_id }}
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.html
 
       # 5. Сохранение папки с результатами как артефакт
       - name: Save Allure results as artifact
@@ -81,34 +107,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # Токен для аутентификации на GitHub
           publish_branch: gh-pages  # Указываем, что отчёт будет опубликован в ветке gh-pages
           publish_dir: allure-history  # Указываем папку, которая будет опубликована на GitHub Pages
-
-  coverage-report:
-    needs: run-tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Restore coverage history
-        uses: actions/cache/restore@v4
-        with:
-          path: coverage-history.json
-          key: coverage-history-${{ github.run_id }}
-          restore-keys: |
-            coverage-history-
-
-      - name: Generate coverage report
-        run: |
-          ui-coverage-tool save-report
-
-      - name: Cache coverage history
-        if: always()
-        uses: actions/cache/save@v4
-        with:
-          path:  coverage-history.json
-          key: coverage-history-${{ github.run_id }}
-
-      - name: Upload coverage report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-report
-          path: coverage.html
