@@ -6,3 +6,9 @@ __pycache__
 /tracing/
 /videos/
 .env
+
+# coverage
+coverage.html
+coverage-results
+coverage-report.json
+coverage-history.json
