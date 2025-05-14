@@ -32,7 +32,7 @@ class BaseElement:
     def get_raw_locator(self, nth: int = 0, **kwargs) -> str:
         return f"//*[@data-testid='{self.locator.format(**kwargs)}'][{nth + 1}]"
 
-    def tracker_coverage(self, action_type: ActionType, nth:  int = 0, **kwargs):
+    def tracker_coverage(self, action_type: ActionType, nth: int = 0, **kwargs):
         tracker.track_coverage(
             selector=self.get_raw_locator(nth, **kwargs),
             action_type=action_type,

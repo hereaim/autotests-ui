@@ -12,15 +12,15 @@ logger = get_logger("INPUT")
 class Input(BaseElement):
     @property
     def type_of(self) -> str:
-        return 'input'
+        return "input"
 
     def get_locator(self, nth: int = 0, **kwargs) -> Locator:
-        return super().get_locator(nth, **kwargs).locator('input')
+        return super().get_locator(nth, **kwargs).locator("input")
 
     def get_raw_locator(self, nth: int = 0, **kwargs) -> str:
-        return f'{super().get_raw_locator(**kwargs)}//input'
+        return f"{super().get_raw_locator(**kwargs)}//input"
 
-    def fill(self, value: str, nth: int = 0,  **kwargs):
+    def fill(self, value: str, nth: int = 0, **kwargs):
         step = f"Fill {self.type_of} '{self.name}' to value '{value}'"
         with allure.step(step):
             logger.info(step)
@@ -34,4 +34,4 @@ class Input(BaseElement):
             logger.info(step)
             locator = self.get_locator(nth, **kwargs)
             expect(locator).to_have_value(value)
-        self.tracker_coverage(ActionType.VALUE,  nth, **kwargs)
+        self.tracker_coverage(ActionType.VALUE, nth, **kwargs)

@@ -36,4 +36,4 @@ class Textarea(BaseElement):
             logger.info(step)
             locator = self.get_locator(nth, **kwargs)
             expect(locator).to_have_value(value)
-        self.tracker_coverage(ActionType.VALUE,  nth, **kwargs)
+        self.tracker_coverage(ActionType.VALUE, nth, **kwargs)
